@@ -51,17 +51,7 @@ const getNavItems = (role: Role) => {
         { href: '/patients', label: 'Patient Records', icon: Users },
         { href: '/register', label: 'Register Patient', icon: UserPlus },
       ];
-    case Role.ASHA_WORKER:
-      return [
-        ...common,
-        { href: '/register', label: 'Register Patient', icon: UserPlus },
-        { href: '/patients', label: 'Patients', icon: Users },
-        { href: '/assess', label: 'Risk Assessment', icon: Activity },
-        { href: '/facilities', label: 'Facilities', icon: Hospital },
-        { href: '/referrals', label: 'Referrals', icon: Ambulance },
-        { href: '/benefits', label: 'Benefits', icon: ShieldCheck },
-        { href: '/abha', label: 'ABHA Health ID', icon: Fingerprint },
-      ];
+
     default:
       return common;
   }

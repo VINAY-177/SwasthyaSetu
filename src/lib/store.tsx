@@ -61,7 +61,7 @@ function generateId(prefix: string): string {
 }
 
 export function DataProvider({ children }: { children: ReactNode }) {
-  const [role, setRole] = useState<Role>(Role.ASHA_WORKER);
+  const [role, setRole] = useState<Role>(Role.PATIENT);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [currentUser, setCurrentUser] = useState<AuthUser | null>(null);
   const [patients, setPatients] = useState<Patient[]>([]);

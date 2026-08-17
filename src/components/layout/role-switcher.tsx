@@ -15,9 +15,9 @@ export function RoleSwitcher() {
 
   const getRoleIcon = (r: Role) => {
     switch (r) {
-      case Role.CITIZEN:
+      case Role.PATIENT:
         return <Users className="h-4 w-4 mr-2" />;
-      case Role.ASHA_WORKER:
+      case Role.DOCTOR:
         return <Stethoscope className="h-4 w-4 mr-2" />;
       case Role.HOSPITAL_STAFF:
         return <Building2 className="h-4 w-4 mr-2" />;
@@ -28,10 +28,10 @@ export function RoleSwitcher() {
 
   const getRoleLabel = (r: Role) => {
     switch (r) {
-      case Role.CITIZEN:
-        return "Citizen";
-      case Role.ASHA_WORKER:
-        return "ASHA Worker";
+      case Role.PATIENT:
+        return "Patient";
+      case Role.DOCTOR:
+        return "Doctor";
       case Role.HOSPITAL_STAFF:
         return "Hospital Staff";
       default:
@@ -48,13 +48,13 @@ export function RoleSwitcher() {
           {getRoleLabel(role)}
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
-          <DropdownMenuItem onClick={() => setRole(Role.CITIZEN)}>
+          <DropdownMenuItem onClick={() => setRole(Role.PATIENT)}>
             <Users className="h-4 w-4 mr-2" />
-            Citizen
+            Patient
           </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => setRole(Role.ASHA_WORKER)}>
+          <DropdownMenuItem onClick={() => setRole(Role.DOCTOR)}>
             <Stethoscope className="h-4 w-4 mr-2" />
-            ASHA Worker
+            Doctor
           </DropdownMenuItem>
           <DropdownMenuItem onClick={() => setRole(Role.HOSPITAL_STAFF)}>
             <Building2 className="h-4 w-4 mr-2" />

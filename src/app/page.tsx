@@ -5,7 +5,7 @@ import { Role } from "@/lib/types";
 import { PatientDashboard } from '@/components/dashboards/patient-dashboard';
 import { DoctorDashboard } from '@/components/dashboards/doctor-dashboard';
 import { StaffDashboard } from '@/components/dashboards/staff-dashboard';
-import { AshaDashboard } from '@/components/dashboards/asha-dashboard';
+
 
 export default function Dashboard() {
   const { role } = useStore();
@@ -15,7 +15,6 @@ export default function Dashboard() {
       {(role === Role.CITIZEN || role === Role.PATIENT) && <PatientDashboard />}
       {role === Role.DOCTOR && <DoctorDashboard />}
       {role === Role.HOSPITAL_STAFF && <StaffDashboard />}
-      {role === Role.ASHA_WORKER && <AshaDashboard />}
     </div>
   );
 }
