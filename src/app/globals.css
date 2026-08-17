@@ -2,26 +2,106 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: 160 20% 98%;
+    --foreground: 200 50% 12%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 200 50% 12%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 200 50% 12%;
+
+    /* Healthcare Emerald / Teal */
+    --primary: 174 78% 30%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 174 25% 94%;
+    --secondary-foreground: 174 80% 20%;
+
+    --muted: 200 20% 95%;
+    --muted-foreground: 200 15% 45%;
+
+    --accent: 174 35% 92%;
+    --accent-foreground: 174 80% 20%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 200 20% 88%;
+    --input: 200 20% 88%;
+    --ring: 174 78% 30%;
+
+    --radius: 0.5rem;
+
+    --sidebar: 174 30% 97%;
+    --sidebar-foreground: 200 50% 15%;
+    --sidebar-primary: 174 78% 30%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 174 35% 92%;
+    --sidebar-accent-foreground: 174 80% 20%;
+    --sidebar-border: 200 20% 90%;
+    --sidebar-ring: 174 78% 30%;
+
+    --chart-1: 174 78% 30%;
+    --chart-2: 152 65% 45%;
+    --chart-3: 215 80% 50%;
+    --chart-4: 35 92% 55%;
+    --chart-5: 0 75% 55%;
+  }
+
+  .dark {
+    --background: 200 50% 8%;
+    --foreground: 0 0% 98%;
+
+    --card: 200 45% 11%;
+    --card-foreground: 0 0% 98%;
+
+    --popover: 200 45% 11%;
+    --popover-foreground: 0 0% 98%;
+
+    --primary: 174 70% 45%;
+    --primary-foreground: 200 50% 8%;
+
+    --secondary: 200 30% 18%;
+    --secondary-foreground: 0 0% 98%;
+
+    --muted: 200 30% 18%;
+    --muted-foreground: 200 15% 65%;
+
+    --accent: 174 40% 20%;
+    --accent-foreground: 0 0% 98%;
+
+    --destructive: 0 62% 30%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 200 30% 20%;
+    --input: 200 30% 20%;
+    --ring: 174 70% 45%;
+
+    --sidebar: 200 45% 10%;
+    --sidebar-foreground: 0 0% 98%;
+    --sidebar-primary: 174 70% 45%;
+    --sidebar-primary-foreground: 200 50% 8%;
+    --sidebar-accent: 174 40% 20%;
+    --sidebar-accent-foreground: 0 0% 98%;
+    --sidebar-border: 200 30% 18%;
+    --sidebar-ring: 174 70% 45%;
+
+    --chart-1: 174 70% 45%;
+    --chart-2: 152 60% 50%;
+    --chart-3: 215 75% 55%;
+    --chart-4: 35 85% 60%;
+    --chart-5: 0 70% 60%;
   }
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
   }
 }
