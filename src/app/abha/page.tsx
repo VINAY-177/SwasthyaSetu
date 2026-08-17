@@ -10,10 +10,10 @@ import { Urgency } from "@/lib/types";
 import { toast } from "sonner";
 
 export default function AbhaPage() {
-  const { patients, getScreeningsForPatient } = useStore();
+  const { patients, getScreeningsForPatient, currentUser } = useStore();
   
-  // Use first patient for demo purposes
-  const patient = patients.length > 0 ? patients[0] : null;
+  // Look up the logged-in user's patient record, if available
+  const patient = patients.find(p => p.name === currentUser?.name) || (patients.length > 0 ? patients[0] : null);
   const screenings = patient ? getScreeningsForPatient(patient.id) : [];
 
   const handleLinkAbha = () => {

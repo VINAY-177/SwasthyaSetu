@@ -17,7 +17,6 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Vitals, RiskFactor, Urgency, FacilityMatch, Comorbidities } from "@/lib/types";
-import { DemoCaseSelector, DemoScenario } from "@/components/demo-case-selector";
 
 // Varanasi default coords
 const PATIENT_LAT = 25.3176;
@@ -62,13 +61,6 @@ export default function AssessPage() {
     setComorbidities((prev) => ({ ...prev, [key]: !prev[key] }));
   };
 
-  const handleSelectScenario = (scenario: DemoScenario) => {
-    setAge(scenario.data.age);
-    setGender(scenario.data.gender);
-    setVitals(scenario.data.vitals);
-    setSymptoms(scenario.data.symptoms);
-    setComorbidities(scenario.data.comorbidities);
-  };
 
   const handleAssess = () => {
     setIsLoading(true);
@@ -113,8 +105,7 @@ export default function AssessPage() {
         </p>
       </div>
 
-      {/* Preset Scenario Selector */}
-      <DemoCaseSelector onSelectScenario={handleSelectScenario} />
+
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
         {/* Left Column: Form Inputs */}
@@ -212,7 +203,7 @@ export default function AssessPage() {
                 <Activity className="w-12 h-12 mb-3 opacity-30 text-primary" />
                 <h3 className="font-semibold text-foreground text-lg mb-1">Ready for Assessment</h3>
                 <p className="text-sm max-w-sm">
-                  Select a demo scenario above or enter vitals and symptoms manually, then click &quot;Assess Clinical Risk&quot;.
+                  Enter vitals and symptoms, then click &quot;Assess Clinical Risk&quot;.
                 </p>
               </CardContent>
             </Card>

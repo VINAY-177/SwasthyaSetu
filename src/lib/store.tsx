@@ -5,12 +5,9 @@ import {
   Patient, Screening, Facility, Referral, Role, Urgency,
   ReferralStatus, AuthUser,
 } from "@/lib/types";
-import { seedFacilities } from "@/data/seed-facilities";
-import { seedPatients, seedScreenings, seedReferrals } from "@/data/seed-patients";
-
 // ============================================================
 // SwasthyaSetu AI — In-Memory Data Store
-// React Context-based global state with seeded data.
+// React Context-based global state.
 // Designed for easy swap to Supabase/Prisma later.
 // ============================================================
 
@@ -67,10 +64,10 @@ export function DataProvider({ children }: { children: ReactNode }) {
   const [role, setRole] = useState<Role>(Role.ASHA_WORKER);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [currentUser, setCurrentUser] = useState<AuthUser | null>(null);
-  const [patients, setPatients] = useState<Patient[]>(seedPatients);
-  const [screenings, setScreenings] = useState<Screening[]>(seedScreenings);
-  const [facilities, setFacilities] = useState<Facility[]>(seedFacilities);
-  const [referrals, setReferrals] = useState<Referral[]>(seedReferrals);
+  const [patients, setPatients] = useState<Patient[]>([]);
+  const [screenings, setScreenings] = useState<Screening[]>([]);
+  const [facilities, setFacilities] = useState<Facility[]>([]);
+  const [referrals, setReferrals] = useState<Referral[]>([]);
 
   const login = useCallback((user: AuthUser) => {
     setIsAuthenticated(true);

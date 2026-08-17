@@ -10,13 +10,8 @@ import AmbulanceMapWrapper from "@/components/ambulance-map-wrapper";
 import { Siren } from "lucide-react";
 import { toast } from "sonner";
 
-// Seed ambulances
-const initialAmbulances: Ambulance[] = [
-  { id: "amb-1", vehicleNo: "UP-65-AM-1001", lat: 25.32, lng: 82.98, status: AmbulanceStatus.AVAILABLE },
-  { id: "amb-2", vehicleNo: "UP-65-AM-1002", lat: 25.30, lng: 83.00, status: AmbulanceStatus.DISPATCHED },
-  { id: "amb-3", vehicleNo: "UP-65-AM-1003", lat: 25.35, lng: 82.95, status: AmbulanceStatus.EN_ROUTE },
-  { id: "amb-4", vehicleNo: "UP-65-AM-1004", lat: 25.28, lng: 82.90, status: AmbulanceStatus.AVAILABLE },
-];
+// Ambulance fleet - populated from live data in production
+const initialAmbulances: Ambulance[] = [];
 
 export default function AmbulancePage() {
   const { role } = useStore();
@@ -95,18 +90,18 @@ export default function AmbulancePage() {
         </CardHeader>
         <CardContent>
           <div className="relative border-l-2 border-muted ml-3 space-y-6">
-            {[
-              "14:32 — AMB-UP-001 dispatched to Chandauli CHC",
-              "14:15 — AMB-UP-002 arrived at District Hospital",
-              "13:50 — AMB-UP-003 dispatched to Ramnagar PHC",
-              "13:20 — AMB-UP-001 available at Base",
-              "12:45 — AMB-UP-004 dispatched for emergency trauma case"
-            ].map((log, idx) => (
-              <div key={idx} className="relative pl-6">
-                <div className="absolute -left-[9px] top-1.5 h-4 w-4 rounded-full bg-primary ring-4 ring-background" />
-                <p className="text-sm font-medium">{log}</p>
+            {ambulances.length === 0 ? (
+              <div className="pl-6">
+                <p className="text-sm text-muted-foreground">No dispatch activity yet.</p>
               </div>
-            ))}
+            ) : (
+              ambulances.map((amb, idx) => (
+                <div key={idx} className="relative pl-6">
+                  <div className="absolute -left-[9px] top-1.5 h-4 w-4 rounded-full bg-primary ring-4 ring-background" />
+                  <p className="text-sm font-medium">{amb.vehicleNo} — {amb.status}</p>
+                </div>
+              ))
+            )}
           </div>
         </CardContent>
       </Card>

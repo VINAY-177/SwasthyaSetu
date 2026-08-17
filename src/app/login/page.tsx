@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useStore } from "@/lib/store";
 import { Role } from "@/lib/types";
@@ -19,68 +19,74 @@ export default function LoginPage() {
   const router = useRouter();
   const { login, facilities } = useStore();
 
-  const handleQuickDemo = (roleType: string) => {
-    switch (roleType) {
-      case "Patient":
-        login({
-          id: "usr-pat-001",
-          name: "Ramesh Kumar",
-          role: Role.PATIENT,
-          phone: "+91 9876543210",
-          email: "ramesh@example.com"
-        });
-        break;
-      case "Doctor":
-        login({
-          id: "usr-doc-019",
-          name: "Dr. Ananya Sharma",
-          role: Role.DOCTOR,
-          phone: "+91 9000000019",
-          email: "ananya@example.com",
-          specialty: "Cardiologist"
-        });
-        break;
-      case "Hospital Staff":
-        login({
-          id: "usr-stf-009",
-          name: "Staff - District Hospital Varanasi",
-          role: Role.HOSPITAL_STAFF,
-          phone: "+91 9000000109",
-          email: "staff.vns@example.com",
-          facilityId: "fac-009"
-        });
-        break;
-      case "ASHA Worker":
-        login({
-          id: "usr-asha-001",
-          name: "Meera Devi",
-          role: Role.ASHA_WORKER,
-          phone: "+91 9000000201",
-          email: "meera@example.com",
-        });
-        break;
-    }
-    router.push("/");
-  };
+  // Patient form state
+  const [patientPhone, setPatientPhone] = useState("");
+  const [patientName, setPatientName] = useState("");
+  const [patientAbha, setPatientAbha] = useState("");
+
+  // Doctor form state
+  const [doctorRegId, setDoctorRegId] = useState("");
+  const [doctorName, setDoctorName] = useState("");
+  const [doctorSpecialty, setDoctorSpecialty] = useState("");
+
+  // Staff form state
+  const [staffId, setStaffId] = useState("");
+  const [staffName, setStaffName] = useState("");
+  const [staffFacilityId, setStaffFacilityId] = useState("");
+
+  // ASHA form state
+  const [ashaId, setAshaId] = useState("");
+  const [ashaName, setAshaName] = useState("");
+  const [ashaVillage, setAshaVillage] = useState("");
 
   const handlePatientLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    handleQuickDemo("Patient");
+    login({
+      id: `usr-pat-${Date.now()}`,
+      name: patientName || "Patient",
+      role: Role.PATIENT,
+      phone: patientPhone,
+      email: "",
+    });
+    router.push("/");
   };
   
   const handleDoctorLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    handleQuickDemo("Doctor");
+    login({
+      id: `usr-doc-${Date.now()}`,
+      name: doctorName || "Doctor",
+      role: Role.DOCTOR,
+      phone: "",
+      email: "",
+      specialty: doctorSpecialty,
+    });
+    router.push("/");
   };
 
   const handleStaffLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    handleQuickDemo("Hospital Staff");
+    login({
+      id: `usr-stf-${Date.now()}`,
+      name: staffName || "Hospital Staff",
+      role: Role.HOSPITAL_STAFF,
+      phone: "",
+      email: "",
+      facilityId: staffFacilityId,
+    });
+    router.push("/");
   };
 
   const handleAshaLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    handleQuickDemo("ASHA Worker");
+    login({
+      id: `usr-asha-${Date.now()}`,
+      name: ashaName || "ASHA Worker",
+      role: Role.ASHA_WORKER,
+      phone: "",
+      email: "",
+    });
+    router.push("/");
   };
 
   return (
@@ -106,12 +112,12 @@ export default function LoginPage() {
 
           <div className="grid grid-cols-2 gap-4">
             <div className="p-4 bg-black/10 rounded-xl backdrop-blur-sm border border-white/10">
-              <div className="text-3xl font-bold mb-1">10+</div>
-              <div className="text-teal-100 text-sm">Facilities Connected</div>
-            </div>
-            <div className="p-4 bg-black/10 rounded-xl backdrop-blur-sm border border-white/10">
               <div className="text-3xl font-bold mb-1">AI</div>
               <div className="text-teal-100 text-sm">Symptom Checker</div>
+            </div>
+            <div className="p-4 bg-black/10 rounded-xl backdrop-blur-sm border border-white/10">
+              <div className="text-3xl font-bold mb-1">108</div>
+              <div className="text-teal-100 text-sm">Ambulance Network</div>
             </div>
           </div>
         </div>
@@ -121,8 +127,8 @@ export default function LoginPage() {
       <div className="md:w-1/2 flex items-center justify-center p-6 md:p-12">
         <div className="w-full max-w-md space-y-6">
           <div className="text-center md:text-left space-y-2">
-            <h2 className="text-3xl font-bold tracking-tight text-foreground">Welcome Back</h2>
-            <p className="text-muted-foreground">Select your role to access the platform</p>
+            <h2 className="text-3xl font-bold tracking-tight text-foreground">Welcome</h2>
+            <p className="text-muted-foreground">Select your role and sign in to access the platform</p>
           </div>
 
           <Tabs defaultValue="patient" className="w-full">
@@ -138,29 +144,25 @@ export default function LoginPage() {
               <Card className="p-6">
                 <form onSubmit={handlePatientLogin} className="space-y-4">
                   <div className="space-y-2">
+                    <Label htmlFor="patient-name">Full Name</Label>
+                    <Input id="patient-name" placeholder="Enter your full name" value={patientName} onChange={(e) => setPatientName(e.target.value)} required />
+                  </div>
+                  <div className="space-y-2">
                     <Label htmlFor="patient-phone">Phone Number</Label>
                     <div className="relative">
                       <Phone className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
-                      <Input id="patient-phone" placeholder="+91 98765 43210" className="pl-9" required />
+                      <Input id="patient-phone" placeholder="+91 98765 43210" className="pl-9" value={patientPhone} onChange={(e) => setPatientPhone(e.target.value)} required />
                     </div>
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="patient-abha">ABHA ID (Optional)</Label>
                     <div className="relative">
                       <Fingerprint className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
-                      <Input id="patient-abha" placeholder="12-digit ABHA Number" className="pl-9" />
+                      <Input id="patient-abha" placeholder="12-digit ABHA Number" className="pl-9" value={patientAbha} onChange={(e) => setPatientAbha(e.target.value)} />
                     </div>
                   </div>
                   <Button type="submit" className="w-full bg-teal-600 hover:bg-teal-700">Login <ArrowRight className="ml-2 w-4 h-4"/></Button>
                 </form>
-                <div className="relative my-6">
-                  <div className="absolute inset-0 flex items-center"><span className="w-full border-t" /></div>
-                  <div className="relative flex justify-center text-xs uppercase"><span className="bg-card px-2 text-muted-foreground">Or</span></div>
-                </div>
-                <Button variant="outline" className="w-full border-teal-200 text-teal-700 hover:bg-teal-50" onClick={() => handleQuickDemo("Patient")}>
-                  Quick Demo Login
-                </Button>
-                <div className="text-center mt-3 text-xs text-muted-foreground">Logs in as Ramesh Kumar (Patient)</div>
               </Card>
             </TabsContent>
 
@@ -169,15 +171,19 @@ export default function LoginPage() {
               <Card className="p-6">
                 <form onSubmit={handleDoctorLogin} className="space-y-4">
                   <div className="space-y-2">
+                    <Label htmlFor="doctor-name">Full Name</Label>
+                    <Input id="doctor-name" placeholder="Dr. Full Name" value={doctorName} onChange={(e) => setDoctorName(e.target.value)} required />
+                  </div>
+                  <div className="space-y-2">
                     <Label htmlFor="doctor-id">Medical Registration ID</Label>
                     <div className="relative">
                       <Shield className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
-                      <Input id="doctor-id" placeholder="e.g. MCI-12345" className="pl-9" required />
+                      <Input id="doctor-id" placeholder="e.g. MCI-12345" className="pl-9" value={doctorRegId} onChange={(e) => setDoctorRegId(e.target.value)} required />
                     </div>
                   </div>
                   <div className="space-y-2">
                     <Label>Specialty</Label>
-                    <Select required>
+                    <Select required onValueChange={(val: string | null) => setDoctorSpecialty(val || "")}>
                       <SelectTrigger>
                         <SelectValue placeholder="Select specialty" />
                       </SelectTrigger>
@@ -193,14 +199,6 @@ export default function LoginPage() {
                   </div>
                   <Button type="submit" className="w-full bg-teal-600 hover:bg-teal-700">Login <ArrowRight className="ml-2 w-4 h-4"/></Button>
                 </form>
-                <div className="relative my-6">
-                  <div className="absolute inset-0 flex items-center"><span className="w-full border-t" /></div>
-                  <div className="relative flex justify-center text-xs uppercase"><span className="bg-card px-2 text-muted-foreground">Or</span></div>
-                </div>
-                <Button variant="outline" className="w-full border-teal-200 text-teal-700 hover:bg-teal-50" onClick={() => handleQuickDemo("Doctor")}>
-                  Quick Demo Login
-                </Button>
-                <div className="text-center mt-3 text-xs text-muted-foreground">Logs in as Dr. Ananya Sharma (Cardiologist)</div>
               </Card>
             </TabsContent>
 
@@ -209,35 +207,35 @@ export default function LoginPage() {
               <Card className="p-6">
                 <form onSubmit={handleStaffLogin} className="space-y-4">
                   <div className="space-y-2">
+                    <Label htmlFor="staff-name">Full Name</Label>
+                    <Input id="staff-name" placeholder="Enter your full name" value={staffName} onChange={(e) => setStaffName(e.target.value)} required />
+                  </div>
+                  <div className="space-y-2">
                     <Label htmlFor="staff-id">Staff ID</Label>
                     <div className="relative">
                       <Shield className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
-                      <Input id="staff-id" placeholder="EMP-123" className="pl-9" required />
+                      <Input id="staff-id" placeholder="EMP-123" className="pl-9" value={staffId} onChange={(e) => setStaffId(e.target.value)} required />
                     </div>
                   </div>
                   <div className="space-y-2">
                     <Label>Facility</Label>
-                    <Select required>
+                    <Select required onValueChange={(val: string | null) => setStaffFacilityId(val || "")}>
                       <SelectTrigger>
                         <SelectValue placeholder="Select facility" />
                       </SelectTrigger>
                       <SelectContent>
-                        {facilities.map(f => (
-                          <SelectItem key={f.id} value={f.id}>{f.name}</SelectItem>
-                        ))}
+                        {facilities.length > 0 ? (
+                          facilities.map(f => (
+                            <SelectItem key={f.id} value={f.id}>{f.name}</SelectItem>
+                          ))
+                        ) : (
+                          <SelectItem value="none" disabled>No facilities registered yet</SelectItem>
+                        )}
                       </SelectContent>
                     </Select>
                   </div>
                   <Button type="submit" className="w-full bg-teal-600 hover:bg-teal-700">Login <ArrowRight className="ml-2 w-4 h-4"/></Button>
                 </form>
-                <div className="relative my-6">
-                  <div className="absolute inset-0 flex items-center"><span className="w-full border-t" /></div>
-                  <div className="relative flex justify-center text-xs uppercase"><span className="bg-card px-2 text-muted-foreground">Or</span></div>
-                </div>
-                <Button variant="outline" className="w-full border-teal-200 text-teal-700 hover:bg-teal-50" onClick={() => handleQuickDemo("Hospital Staff")}>
-                  Quick Demo Login
-                </Button>
-                <div className="text-center mt-3 text-xs text-muted-foreground">Logs in as Staff at District Hospital Varanasi</div>
               </Card>
             </TabsContent>
 
@@ -246,29 +244,25 @@ export default function LoginPage() {
               <Card className="p-6">
                 <form onSubmit={handleAshaLogin} className="space-y-4">
                   <div className="space-y-2">
+                    <Label htmlFor="asha-name">Full Name</Label>
+                    <Input id="asha-name" placeholder="Enter your full name" value={ashaName} onChange={(e) => setAshaName(e.target.value)} required />
+                  </div>
+                  <div className="space-y-2">
                     <Label htmlFor="asha-id">ASHA Worker ID</Label>
                     <div className="relative">
                       <Shield className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
-                      <Input id="asha-id" placeholder="AW-1234" className="pl-9" required />
+                      <Input id="asha-id" placeholder="AW-1234" className="pl-9" value={ashaId} onChange={(e) => setAshaId(e.target.value)} required />
                     </div>
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="asha-village">Village / Block</Label>
                     <div className="relative">
                       <Building2 className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
-                      <Input id="asha-village" placeholder="e.g. Kashi Vidyapeeth" className="pl-9" required />
+                      <Input id="asha-village" placeholder="e.g. Kashi Vidyapeeth" className="pl-9" value={ashaVillage} onChange={(e) => setAshaVillage(e.target.value)} required />
                     </div>
                   </div>
                   <Button type="submit" className="w-full bg-teal-600 hover:bg-teal-700">Login <ArrowRight className="ml-2 w-4 h-4"/></Button>
                 </form>
-                <div className="relative my-6">
-                  <div className="absolute inset-0 flex items-center"><span className="w-full border-t" /></div>
-                  <div className="relative flex justify-center text-xs uppercase"><span className="bg-card px-2 text-muted-foreground">Or</span></div>
-                </div>
-                <Button variant="outline" className="w-full border-teal-200 text-teal-700 hover:bg-teal-50" onClick={() => handleQuickDemo("ASHA Worker")}>
-                  Quick Demo Login
-                </Button>
-                <div className="text-center mt-3 text-xs text-muted-foreground">Logs in as Meera Devi (Kashi Vidyapeeth)</div>
               </Card>
             </TabsContent>
           </Tabs>

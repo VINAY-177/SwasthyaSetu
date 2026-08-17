@@ -10,7 +10,7 @@ import { HeartPulse, Trash2 } from "lucide-react";
 import { PatientRegistrationInput, Comorbidities, BLOOD_GROUPS } from "@/lib/types";
 import { SymptomPicker } from "./symptom-picker";
 import { VitalsInput } from "./vitals-input";
-import { DemoCaseSelector, DemoScenario } from "./demo-case-selector";
+
 
 interface PatientFormProps {
   onSubmit: (data: PatientRegistrationInput) => void;
@@ -21,19 +21,19 @@ const DRAFT_KEY = "swasthyasetu-draft";
 
 const defaultState: PatientRegistrationInput = {
   name: "",
-  age: 45,
+  age: 0,
   gender: "Male",
   bloodGroup: "O+",
-  village: "Kashi Vidyapeeth",
-  district: "Varanasi",
-  state: "Uttar Pradesh",
+  village: "",
+  district: "",
+  state: "",
   incomeCategory: "BPL",
   vitals: {
-    bpSystolic: 120,
-    bpDiastolic: 80,
-    pulse: 72,
-    temperature: 36.8,
-    spO2: 98,
+    bpSystolic: 0,
+    bpDiastolic: 0,
+    pulse: 0,
+    temperature: 0,
+    spO2: 0,
   },
   symptoms: [],
   comorbidities: {
@@ -81,10 +81,6 @@ export function PatientForm({ onSubmit, isLoading }: PatientFormProps) {
     onSubmit(formData);
   };
 
-  const handleSelectScenario = (scenario: DemoScenario) => {
-    setFormData({ ...scenario.data });
-  };
-
   const clearDraft = () => {
     localStorage.removeItem(DRAFT_KEY);
     setFormData(defaultState);
@@ -94,9 +90,6 @@ export function PatientForm({ onSubmit, isLoading }: PatientFormProps) {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-8">
-      {/* Presentation Demo Scenario Selector */}
-      <DemoCaseSelector onSelectScenario={handleSelectScenario} />
-
       <div className="flex justify-between items-center bg-muted/40 p-3 rounded-lg text-xs">
         <span className="text-muted-foreground">
           Local-First Autosave Active (Draft stored in browser IndexedDB/LocalStorage)
