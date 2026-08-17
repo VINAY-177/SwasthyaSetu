@@ -16,22 +16,25 @@ import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@
 
 export default function LoginPage() {
   const router = useRouter();
-  const { login, facilities } = useStore();
+  const { login } = useStore();
 
   const [selectedRole, setSelectedRole] = useState<Role>(Role.PATIENT);
   
   // Shared Form State
   const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
   
   // Patient Fields
   const [patientPhone, setPatientPhone] = useState("");
   const [patientAbha, setPatientAbha] = useState("");
 
   // Doctor Fields
+  const [doctorPhone, setDoctorPhone] = useState("");
   const [doctorRegId, setDoctorRegId] = useState("");
   const [doctorSpecialty, setDoctorSpecialty] = useState("");
 
   // Staff Fields
+  const [staffPhone, setStaffPhone] = useState("");
   const [staffId, setStaffId] = useState("");
   const [staffFacilityId, setStaffFacilityId] = useState("");
 
@@ -44,15 +47,15 @@ export default function LoginPage() {
         name: fullName || "Patient",
         role: Role.PATIENT,
         phone: patientPhone,
-        email: "",
+        email: email,
       });
     } else if (selectedRole === Role.DOCTOR) {
       login({
         id: `usr-doc-${Date.now()}`,
         name: fullName || "Doctor",
         role: Role.DOCTOR,
-        phone: "",
-        email: "",
+        phone: doctorPhone,
+        email: email,
         specialty: doctorSpecialty,
       });
     } else if (selectedRole === Role.HOSPITAL_STAFF) {
@@ -60,8 +63,8 @@ export default function LoginPage() {
         id: `usr-stf-${Date.now()}`,
         name: fullName || "Hospital Staff",
         role: Role.HOSPITAL_STAFF,
-        phone: "",
-        email: "",
+        phone: staffPhone,
+        email: email,
         facilityId: staffFacilityId,
       });
     }
@@ -143,6 +146,21 @@ export default function LoginPage() {
                 </div>
               </div>
 
+              <div className="space-y-2">
+                <Label htmlFor="email">Email ID (Optional)</Label>
+                <div className="relative">
+                  <User className="absolute left-3 top-3.5 h-4 w-4 text-muted-foreground" />
+                  <Input 
+                    id="email" 
+                    type="email"
+                    placeholder="name@example.com" 
+                    className="pl-9 h-11" 
+                    value={email} 
+                    onChange={(e) => setEmail(e.target.value)} 
+                  />
+                </div>
+              </div>
+
               {/* Patient Specific Fields */}
               {selectedRole === Role.PATIENT && (
                 <>
@@ -180,6 +198,20 @@ export default function LoginPage() {
               {selectedRole === Role.DOCTOR && (
                 <>
                   <div className="space-y-2 animate-in fade-in slide-in-from-top-2 duration-300">
+                    <Label htmlFor="doctor-phone">Phone Number</Label>
+                    <div className="relative">
+                      <Phone className="absolute left-3 top-3.5 h-4 w-4 text-muted-foreground" />
+                      <Input 
+                        id="doctor-phone" 
+                        placeholder="+91 98765 43210" 
+                        className="pl-9 h-11" 
+                        value={doctorPhone} 
+                        onChange={(e) => setDoctorPhone(e.target.value)} 
+                        required 
+                      />
+                    </div>
+                  </div>
+                  <div className="space-y-2 animate-in fade-in slide-in-from-top-2 duration-300">
                     <Label htmlFor="doctor-id">Medical Registration ID</Label>
                     <div className="relative">
                       <Shield className="absolute left-3 top-3.5 h-4 w-4 text-muted-foreground" />
@@ -216,6 +248,20 @@ export default function LoginPage() {
               {selectedRole === Role.HOSPITAL_STAFF && (
                 <>
                   <div className="space-y-2 animate-in fade-in slide-in-from-top-2 duration-300">
+                    <Label htmlFor="staff-phone">Phone Number</Label>
+                    <div className="relative">
+                      <Phone className="absolute left-3 top-3.5 h-4 w-4 text-muted-foreground" />
+                      <Input 
+                        id="staff-phone" 
+                        placeholder="+91 98765 43210" 
+                        className="pl-9 h-11" 
+                        value={staffPhone} 
+                        onChange={(e) => setStaffPhone(e.target.value)} 
+                        required 
+                      />
+                    </div>
+                  </div>
+                  <div className="space-y-2 animate-in fade-in slide-in-from-top-2 duration-300">
                     <Label htmlFor="staff-id">Staff ID</Label>
                     <div className="relative">
                       <Shield className="absolute left-3 top-3.5 h-4 w-4 text-muted-foreground" />
@@ -230,23 +276,17 @@ export default function LoginPage() {
                     </div>
                   </div>
                   <div className="space-y-2 animate-in fade-in slide-in-from-top-2 duration-300">
-                    <Label>Facility</Label>
+                    <Label htmlFor="facility-name">Facility Name</Label>
                     <div className="relative">
                       <Building2 className="absolute left-3 top-3.5 h-4 w-4 text-muted-foreground z-10" />
-                      <Select required value={staffFacilityId} onValueChange={(val: string | null) => setStaffFacilityId(val || "")}>
-                        <SelectTrigger className="h-11 pl-9">
-                          <SelectValue placeholder="Select facility" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {facilities.length > 0 ? (
-                            facilities.map(f => (
-                              <SelectItem key={f.id} value={f.id}>{f.name}</SelectItem>
-                            ))
-                          ) : (
-                            <SelectItem value="none" disabled>No facilities registered yet</SelectItem>
-                          )}
-                        </SelectContent>
-                      </Select>
+                      <Input 
+                        id="facility-name" 
+                        placeholder="Enter your facility name" 
+                        className="pl-9 h-11" 
+                        value={staffFacilityId} 
+                        onChange={(e) => setStaffFacilityId(e.target.value)} 
+                        required 
+                      />
                     </div>
                   </div>
                 </>
