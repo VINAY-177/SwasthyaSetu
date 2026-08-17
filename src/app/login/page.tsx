@@ -278,7 +278,7 @@ export default function LoginPage() {
                   </div>
                   <div className="space-y-2">
                     <Label>Specialty</Label>
-                    <Select required value={doctorSpecialty} onValueChange={(val: string | null) => setDoctorSpecialty(val || "")}>
+                    <Select value={doctorSpecialty} onValueChange={(val) => setDoctorSpecialty(val ?? "")}>
                       <SelectTrigger className="h-11 bg-background">
                         <SelectValue placeholder="Select specialty" />
                       </SelectTrigger>
