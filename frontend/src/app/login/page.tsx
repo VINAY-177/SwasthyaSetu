@@ -153,9 +153,9 @@ export default function LoginPage() {
                     </button>
                     <button
                       type="button"
-                      onClick={() => setSelectedRole(Role.STAFF)}
+                      onClick={() => setSelectedRole(Role.HOSPITAL_STAFF)}
                       className={`flex flex-col items-center justify-center p-4 rounded-xl border-2 transition-all ${
-                        selectedRole === Role.STAFF 
+                        selectedRole === Role.HOSPITAL_STAFF 
                           ? "border-blue-600 bg-blue-50/50 text-blue-700" 
                           : "border-slate-100 text-slate-500 hover:border-slate-200 hover:bg-slate-50"
                       }`}
