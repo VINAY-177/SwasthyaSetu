@@ -29,6 +29,7 @@ export default function LoginPage() {
       {
         id: "1",
         name: "Citizen Demo",
+        email: emailOrMobile || "demo@example.com",
         role: selectedRole,
         phone: emailOrMobile || "9876543210",
       }
