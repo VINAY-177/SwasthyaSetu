@@ -10,7 +10,7 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent } from "@/components/ui/card";
 import { 
   ShieldPlus, Users, Stethoscope, Building2, Mail, Lock, Eye, ArrowRight,
-  Heart, Shield, Cpu, Activity, Fingerprint
+  Heart, Shield, Cpu, Fingerprint
 } from "lucide-react";
 import Image from "next/image";
 
