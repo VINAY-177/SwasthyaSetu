@@ -1,0 +1,39 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Hospital {
+  id           String   @id @default(uuid())
+  name         String
+  type         String   // "Government", "Private", "PHC", "CHC", etc.
+  district     String   // e.g., "New Delhi", "South Delhi"
+  state        String   // "Delhi"
+  location     String   // Address or specific area
+  totalBeds    Int
+  availableBeds Int
+  icuBeds      Int
+  availableIcu Int
+  specialties  String   // JSON string or comma-separated
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model GovernmentScheme {
+  id              String   @id @default(uuid())
+  schemeName      String
+  description     String
+  eligibility     String
+  coverageAmount  String
+  officialLink    String
+  stateApplicable String   // "Delhi", "National", etc.
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
