@@ -10,7 +10,7 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent } from "@/components/ui/card";
 import { 
   ShieldPlus, Users, Stethoscope, Building2, Mail, Lock, Eye, ArrowRight,
-  Heart, Shield, Cpu, Fingerprint
+  Heart, Shield, Cpu
 } from "lucide-react";
 import Image from "next/image";
 
@@ -217,25 +217,6 @@ export default function LoginPage() {
                   <ArrowRight className="h-5 w-5 absolute right-6" />
                 </Button>
 
-                {/* Divider */}
-                <div className="relative py-2">
-                  <div className="absolute inset-0 flex items-center">
-                    <span className="w-full border-t border-slate-100" />
-                  </div>
-                  <div className="relative flex justify-center text-xs uppercase">
-                    <span className="bg-white px-3 text-slate-400 font-medium">or</span>
-                  </div>
-                </div>
-
-                {/* Fingerprint */}
-                <Button 
-                  type="button" 
-                  variant="outline" 
-                  className="w-full h-12 rounded-xl border-slate-200 text-teal-600 font-bold hover:bg-teal-50/50 hover:text-teal-700 hover:border-teal-200"
-                >
-                  <Fingerprint className="w-5 h-5 mr-2" />
-                  Sign in with Fingerprint
-                </Button>
 
                 {/* Register Link */}
                 <p className="text-center text-sm font-medium text-slate-500 pt-2">
