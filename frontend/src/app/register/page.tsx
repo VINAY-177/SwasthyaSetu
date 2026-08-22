@@ -59,7 +59,7 @@ export default function RegisterPage() {
       });
 
       if (typeof window !== "undefined") {
-        localStorage.removeItem("swasthyasetu-draft");
+        localStorage.removeItem("Arogya Saathi-draft");
       }
 
       toast.success("Patient registered and risk evaluated successfully!");

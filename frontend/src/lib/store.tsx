@@ -6,7 +6,7 @@ import {
   ReferralStatus, AuthUser,
 } from "@/lib/types";
 // ============================================================
-// SwasthyaSetu AI — In-Memory Data Store
+// Arogya Saathi AI — In-Memory Data Store
 // React Context-based global state.
 // Designed for easy swap to Supabase/Prisma later.
 // ============================================================

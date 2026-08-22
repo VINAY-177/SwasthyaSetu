@@ -1,5 +1,5 @@
 // ============================================================
-// SwasthyaSetu AI — Type Definitions
+// Arogya Saathi AI — Type Definitions
 // Mirrors the planned Prisma schema for future migration
 // ============================================================
 

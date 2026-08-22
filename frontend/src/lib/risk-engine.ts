@@ -1,7 +1,7 @@
 import { Vitals, Comorbidities, RiskFactor, RiskResult, Urgency } from "@/lib/types";
 
 // ============================================================
-// SwasthyaSetu AI — Rule-Based Risk Scoring Engine
+// Arogya Saathi AI — Rule-Based Risk Scoring Engine
 // Pure TypeScript, zero dependencies, fully deterministic
 // ============================================================
 

@@ -1,7 +1,7 @@
 import { Facility, FacilityMatch, Urgency, BloodGroup } from "@/lib/types";
 
 // ============================================================
-// SwasthyaSetu AI — Referral & Facility Matching Engine
+// Arogya Saathi AI — Referral & Facility Matching Engine
 // Ranks facilities by distance, capability, and availability
 // ============================================================
 

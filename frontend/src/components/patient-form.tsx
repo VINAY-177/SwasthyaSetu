@@ -17,7 +17,7 @@ interface PatientFormProps {
   isLoading?: boolean;
 }
 
-const DRAFT_KEY = "swasthyasetu-draft";
+const DRAFT_KEY = "Arogya Saathi-draft";
 
 const defaultState: PatientRegistrationInput = {
   name: "",
