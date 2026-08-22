@@ -31,8 +31,7 @@ export default function LoginPage() {
         name: "Citizen Demo",
         role: selectedRole,
         phone: emailOrMobile || "9876543210",
-      },
-      "dummy-token"
+      }
     );
     router.push("/");
   };
